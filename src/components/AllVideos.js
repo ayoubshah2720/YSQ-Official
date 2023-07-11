@@ -49,12 +49,13 @@ const AllVideos = () => {
       <View style={styles.header}>
         <Text style={styles.headerText}>YouTube Channel Videos</Text>
       </View>
-      <YouTubePlayer videoId={currentVideo} />
+      <YouTubePlayer videoId={currentVideo} apiKey={API_KEY} />
       {videos && videos.map((item)=>{
         return(
           <TouchableOpacity style={styles.videoItem} onPress={() => openVideo(item.id.videoId)} key={item.id.videoId}>
           <View style={styles.header}>
         <Text style={styles.headerText}>{item.snippet.title}</Text>
+        {/* <Text style={styles.headerText}>{item.snippet.title}</Text> */}
       </View>
     </TouchableOpacity>
         )
