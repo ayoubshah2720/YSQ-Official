@@ -7,8 +7,10 @@ import AllVideos from './src/components/AllVideos';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
       <AllVideos />
+      {/* <View style={{height:300, width:300}}>
+      <YouTubePlayer/>
+      </View> */}
     </View>
   );
 }
@@ -16,7 +18,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'red',
     alignItems: 'center',
     justifyContent: 'center',
   },

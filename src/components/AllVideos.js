@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, SafeAreaView, ScrollView, Image } from 'react-native';
 import axios from 'axios';
 import YouTubePlayer from './YoutubePlayer';
 
 const API_KEY = 'AIzaSyCNJUXsTrreXa3yDqfDwlcipQOiaRU324Y';
-const channelId = 'UCopGInP3Ap38PCFq2-e5JoQ';
+// const channelId = 'UCopGInP3Ap38PCFq2-e5JoQ'; //YSQ-Officials
+const channelId = 'UCuK9T9lPVEMnu000Aem95yA'; //highlights waly
 
 const AllVideos = () => {
   const [videos, setVideos] = useState([]);
@@ -21,21 +22,14 @@ const AllVideos = () => {
         `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&maxResults=10&order=date&type=video&key=${API_KEY}`
       );
       const data = await response.json();
-      console.log('data',data);
 
-    const videos = data.items;
-    console.log('videos',videos);
+      const videos = data.items;
       setVideos(videos);
+      console.log('videos',videos[0].snippet.thumbnails.default.url)
     } catch (error) {
       console.error('Error fetching channel videos:', error);
     }
   };
-
-  // const renderVideoItem = ({ item }) => (
-  //   <TouchableOpacity style={styles.videoItem} onPress={() => openVideo(item.id.videoId)}>
-  //     <Text style={styles.videoTitle}>{item.snippet.title}</Text>
-  //   </TouchableOpacity>
-  // );
 
   const openVideo = (videoId) => {
     // Handle opening the video
@@ -46,32 +40,21 @@ const AllVideos = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>YouTube Channel Videos</Text>
-      </View>
-      <YouTubePlayer videoId={currentVideo} apiKey={API_KEY} />
-      {videos && videos.map((item)=>{
-        return(
-          <TouchableOpacity style={styles.videoItem} onPress={() => openVideo(item.id.videoId)} key={item.id.videoId}>
-          <View style={styles.header}>
-        <Text style={styles.headerText}>{item.snippet.title}</Text>
-        {/* <Text style={styles.headerText}>{item.snippet.title}</Text> */}
-      </View>
-    </TouchableOpacity>
-        )
-      })}
-      {/* <FlatList
-        data={videos}
-        renderItem={(item)=>{
-          return(
-          <TouchableOpacity style={styles.videoItem} onPress={() => openVideo(item.id.videoId)}>
-      <Text style={styles.videoTitle}>{item.etag}</Text>
-    </TouchableOpacity>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>YouTube Channel Videos</Text>
+        </View>
+        <YouTubePlayer videoId={currentVideo} apiKey={API_KEY} />
+        {videos && videos.map((item) => {
+          return (
+            <TouchableOpacity style={styles.videoItem} onPress={() => openVideo(item.id.videoId)} key={item.id.videoId}>
+              <View style={styles.header}>
+              <Image source='https://i.ytimg.com/vi/qyVfxfHfIhY/default.jpg' style={styles.scan} />
+                <Text style={styles.headerText}>{item.snippet.title}</Text>
+                {/* <Text style={styles.headerText}>{item.snippet.title}</Text> */}
+              </View>
+            </TouchableOpacity>
           )
-        }}
-        keyExtractor={(item) => item.id.videoId}
-        contentContainerStyle={styles.videoList}
-      /> */}
+        })}
       </ScrollView>
     </SafeAreaView>
   );
@@ -101,6 +84,11 @@ const styles = StyleSheet.create({
   videoTitle: {
     fontSize: 16,
   },
+  scan:{
+    height:200,
+    width:200,
+    backgroundColor:'yellow'
+  }
 });
 
 export default AllVideos;
