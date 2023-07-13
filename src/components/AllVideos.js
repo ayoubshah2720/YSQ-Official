@@ -4,8 +4,8 @@ import axios from 'axios';
 import YouTubePlayer from './YoutubePlayer';
 
 const API_KEY = 'AIzaSyCNJUXsTrreXa3yDqfDwlcipQOiaRU324Y';
-// const channelId = 'UCopGInP3Ap38PCFq2-e5JoQ'; //YSQ-Officials
-const channelId = 'UCuK9T9lPVEMnu000Aem95yA'; //highlights waly
+const channelId = 'UCopGInP3Ap38PCFq2-e5JoQ'; //YSQ-Officials
+// const channelId = 'UCuK9T9lPVEMnu000Aem95yA'; //highlights waly
 
 const AllVideos = () => {
   const [videos, setVideos] = useState([]);
@@ -31,10 +31,10 @@ const AllVideos = () => {
     }
   };
 
-  const openVideo = (videoId) => {
+  const openVideo = (video) => {
     // Handle opening the video
-    setCurrentVideo(videoId)
-    console.log('Opening video:', videoId);
+    setCurrentVideo(video)
+    console.log('Opening video:', video);
   };
 
   return (
@@ -43,12 +43,12 @@ const AllVideos = () => {
         <View style={styles.header}>
           <Text style={styles.headerText}>YouTube Channel Videos</Text>
         </View>
-        <YouTubePlayer videoId={currentVideo} apiKey={API_KEY} />
+        <YouTubePlayer video={currentVideo} apiKey={API_KEY} />
         {videos && videos.map((item) => {
           return (
-            <TouchableOpacity style={styles.videoItem} onPress={() => openVideo(item.id.videoId)} key={item.id.videoId}>
+            <TouchableOpacity style={styles.videoItem} onPress={() => openVideo(item)} key={item.id.videoId}>
               <View style={styles.header}>
-              <Image source='https://i.ytimg.com/vi/qyVfxfHfIhY/default.jpg' style={styles.scan} />
+              <Image source={{uri:item.snippet.thumbnails.high.url}} style={styles.thumbnail} />
                 <Text style={styles.headerText}>{item.snippet.title}</Text>
                 {/* <Text style={styles.headerText}>{item.snippet.title}</Text> */}
               </View>
@@ -65,11 +65,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    backgroundColor: '#f4511e',
+    // backgroundColor: '#f4511e',
     padding: 16,
   },
   headerText: {
-    color: '#fff',
+    color: '#000000',
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
@@ -84,10 +84,9 @@ const styles = StyleSheet.create({
   videoTitle: {
     fontSize: 16,
   },
-  scan:{
+  thumbnail:{
     height:200,
-    width:200,
-    backgroundColor:'yellow'
+    width:'100%',
   }
 });
 

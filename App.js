@@ -8,9 +8,6 @@ export default function App() {
   return (
     <View style={styles.container}>
       <AllVideos />
-      {/* <View style={{height:300, width:300}}>
-      <YouTubePlayer/>
-      </View> */}
     </View>
   );
 }
@@ -18,7 +15,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'red',
     alignItems: 'center',
     justifyContent: 'center',
   },

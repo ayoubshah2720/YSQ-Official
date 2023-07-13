@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Dimensions } from 'react-native';
-import YouTube from 'react-native-youtube';
-import { WebView } from 'react-native-webview';
+import { StyleSheet, View, Text } from 'react-native';
 import YoutubePlayer from "react-native-youtube-iframe";
 
-const YouTubePlayer = ({ videoId, apiKey }) => {
+const YouTubePlayer = ({ video, apiKey }) => {
   const [playing, setPlaying] = useState(true);
-  const youtubeUrl = `https://www.youtube.com/embed/${videoId}`;
-  console.log('clicked', videoId);
+  // const youtubeUrl = `https://www.youtube.com/embed/${videoId}`;
+  console.log('clicked', video);
   console.log('apikey', apiKey);
   // const API_KEY = 'AIzaSyCNJUXsTrreXa3yDqfDwlcipQOiaRU324Y';
 
@@ -15,12 +13,12 @@ const YouTubePlayer = ({ videoId, apiKey }) => {
   return (
     <View style={styles.container}>
       <YoutubePlayer
-        height={300}
-        width={300}
+        height={250}
+        width={'100%'}
         play={playing}
-        videoId={videoId}
-      // videoId={'3dWpLADVB00'}
+        videoId={video?.id?.videoId}
       />
+      <Text style={styles.headerText}>{video?.snippet?.thumbnails?.title}</Text>
     </View>
   );
 };
