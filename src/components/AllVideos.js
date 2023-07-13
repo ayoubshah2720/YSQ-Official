@@ -8,8 +8,9 @@ const channelId = 'UCopGInP3Ap38PCFq2-e5JoQ'; //YSQ-Officials
 // const channelId = 'UCuK9T9lPVEMnu000Aem95yA'; //highlights waly
 
 const AllVideos = () => {
+  // const { navigation } = props
   const [videos, setVideos] = useState([]);
-  const [currentVideo, setCurrentVideo] = useState('');
+  const [currentVideo, setCurrentVideo] = useState(false);
 
   useEffect(() => {
     fetchChannelVideos();
@@ -34,22 +35,22 @@ const AllVideos = () => {
   const openVideo = (video) => {
     // Handle opening the video
     setCurrentVideo(video)
-    console.log('Opening video:', video);
+    // navigation.navigation('YoutubePlayer',video)
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
+      <ScrollView style={styles.main}>
         <View style={styles.header}>
-          <Text style={styles.headerText}>YouTube Channel Videos</Text>
+          <Text style={styles.headerText}>Yaqub Shah Officials</Text>
         </View>
-        <YouTubePlayer video={currentVideo} apiKey={API_KEY} />
+        {currentVideo && <YouTubePlayer video={currentVideo} apiKey={API_KEY} />}
         {videos && videos.map((item) => {
           return (
             <TouchableOpacity style={styles.videoItem} onPress={() => openVideo(item)} key={item.id.videoId}>
               <View style={styles.header}>
               <Image source={{uri:item.snippet.thumbnails.high.url}} style={styles.thumbnail} />
-                <Text style={styles.headerText}>{item.snippet.title}</Text>
+                <Text style={styles.videoTitle}>{item.snippet.title}</Text>
                 {/* <Text style={styles.headerText}>{item.snippet.title}</Text> */}
               </View>
             </TouchableOpacity>
@@ -64,25 +65,41 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  main:{
+    width:'100%'
+  },
   header: {
-    // backgroundColor: '#f4511e',
-    padding: 16,
+    width:'100%',
+    // backgroundColor:'#5AAA85',
+    // padding: 16,
   },
   headerText: {
     color: '#000000',
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
+    backgroundColor:'#5AAA85',
+    paddingVertical:20,
+    borderBottomRightRadius:20,
+    borderBottomLeftRadius:20,
+    marginVertical:10,
+    color:'#fff'
   },
   videoList: {
     paddingHorizontal: 16,
-    paddingTop: 16,
+    // marginVertical:20,
+    // paddingTop: 16,
   },
   videoItem: {
-    paddingVertical: 8,
+    backgroundColor:'#5AAA85',
+    marginHorizontal: 8,
   },
   videoTitle: {
-    fontSize: 16,
+    fontSize: 20,
+    fontWeight: 'bold',
+    color:'#fff',
+    paddingHorizontal:20,
+    // textAlign: 'center',
   },
   thumbnail:{
     height:200,

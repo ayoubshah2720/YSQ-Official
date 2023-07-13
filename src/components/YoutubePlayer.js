@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import YoutubePlayer from "react-native-youtube-iframe";
 
-const YouTubePlayer = ({ video, apiKey }) => {
+const YouTubePlayer = ({video, apiKey}) => {
   const [playing, setPlaying] = useState(true);
   // const youtubeUrl = `https://www.youtube.com/embed/${videoId}`;
   console.log('clicked', video);
-  console.log('apikey', apiKey);
   // const API_KEY = 'AIzaSyCNJUXsTrreXa3yDqfDwlcipQOiaRU324Y';
 
 
